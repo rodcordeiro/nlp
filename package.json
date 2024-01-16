@@ -1,0 +1,28 @@
+{
+  "name": "@rodcorder/nlp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start:dev": "tsx watch src/index.ts",
+    "format": "npm run lint && npm run pretty",
+    "lint": "eslint --fix --ignore-path .eslintignore --fix --ext .ts,.js .",
+    "pretty": "prettier --ignore-path .eslintignore --write .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.3.1",
+    "node-nlp": "^4.27.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.1",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.2",
+    "tsx": "^3.12.7"
+  }
+}
