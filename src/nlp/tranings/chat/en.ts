@@ -1,9 +1,9 @@
 import fs from 'fs';
 
-export async function trainChatModel(manager: any) {
-  if (fs.existsSync('./src/nlp/models/chat.nlp')) {
+export default async function trainChatModel(manager: any) {
+  if (fs.existsSync('./src/nlp/models/chat.en.nlp')) {
     console.log('Chat Model already exists, skipping training...');
-    manager.load('./src/nlp/models/chat.nlp');
+    manager.load('./src/nlp/models/chat.en.nlp');
     return;
   }
   console.log('Training models...');
@@ -364,6 +364,7 @@ export async function trainChatModel(manager: any) {
   manager.addDocument('en', 'I need some advice', 'user.needsadvice');
   manager.addDocument('en', 'can you give me some advice', 'user.needsadvice');
   manager.addDocument('en', 'what should I do', 'user.needsadvice');
+
   // say('Training, please wait..');
   const hrstart = process.hrtime();
   await manager.train();
@@ -768,5 +769,5 @@ export async function trainChatModel(manager: any) {
     "I'm not sure I'll have the best answer, but I'll try",
   );
   manager.addAnswer('en', 'None', "Sorry, I don't understand");
-  manager.save('./src/nlp/models/chat.nlp');
+  manager.save('./src/nlp/models/chat.en.nlp');
 }

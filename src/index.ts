@@ -13,14 +13,18 @@ import { trainCommandsModel } from './nlp/tranings/commands';
     'Who are you?',
     'this is a test',
     'here I am again',
-    'en',
+    'Advice, please',
     'Send an email to Bizzi',
     'Send a message to Sweetie',
     'Envia um email para o Bizzi',
     'Manda uma messagem para Sweetie',
     'Bom dia',
     'Testando',
+    'Como você está?',
+    'Tudo bem?',
+    'Me dê um conselho',
     'Abobrinha',
+    'sabe como eu posso testar a api de fotos no insomnia?',
   ];
   for await (const message of messages) {
     response = await manager.process(message);
