@@ -1,13 +1,12 @@
 import { NlpManager } from 'node-nlp';
+import path from 'path';
 
 const manager = new NlpManager({
-  languages: ['pt', 'en'],
+  languages: ['en', 'pt'],
   forceNER: true,
-  log: true,
+  // nlu: { log: true },
+  // ner: { log: true },
+  // autoSave:true,
 });
-
-try{manager.load('./models/model.nlp')}catch(err){
-  console.error(err)
-}
 
 export default manager;

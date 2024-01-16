@@ -1,28 +1,46 @@
-import manager from '../manager';
+import fs from 'fs';
 
-// Adds the utterances and intents for the NLP
-manager.addDocument('en', 'goodbye for now', 'greetings.bye');
-manager.addDocument('en', 'bye bye take care', 'greetings.bye');
-manager.addDocument('en', 'okay see you later', 'greetings.bye');
-manager.addDocument('en', 'bye for now', 'greetings.bye');
-manager.addDocument('en', 'i must go', 'greetings.bye');
-manager.addDocument('en', 'hello', 'greetings.hello');
-manager.addDocument('en', 'hi', 'greetings.hello');
-manager.addDocument('en', 'howdy', 'greetings.hello');
-manager.addDocument('pt', 'Bom dia', 'greetings.hello');
-manager.addDocument('pt', 'E ai?', 'greetings.hello');
-manager.addDocument('pt', 'Oi', 'greetings.hello');
-manager.addDocument('pt', 'tchau', 'greetings.bye');
-manager.addDocument('pt', 'Até', 'greetings.bye');
-manager.addDocument('pt', 'Adeus', 'greetings.bye');
+export async function trainCommandsModel(manager: any) {
+  if (fs.existsSync('./src/nlp/models/commands.nlp')) {
+    console.log('Command Model already exists, skipping training...');
+    manager.load('./src/nlp/models/commands.nlp');
+    return;
+  }
+  console.log('Training models...');
 
-// Train also the NLG
-manager.addAnswer('en', 'greetings.bye', 'Till next time');
-manager.addAnswer('en', 'greetings.bye', 'see you soon!');
-manager.addAnswer('en', 'greetings.hello', 'Hey there!');
-manager.addAnswer('en', 'greetings.hello', 'Greetings!');
-manager.addAnswer('pt', 'greetings.hello', 'Bom dia!');
-manager.addAnswer('pt', 'greetings.hello', 'Tudo bem?');
-manager.addAnswer('pt', 'greetings.bye', 'Flw');
-manager.addAnswer('pt', 'greetings.bye', 'Vlw');
-manager.addAnswer('pt', 'greetings.bye', 'Até');
+  manager.addDocument('en', 'Send an email to', 'command.sendemail');
+  manager.addDocument('pt', 'Envia um email para', 'command.sendemail');
+  manager.addDocument('pt', 'Envia um email pra', 'command.sendemail');
+
+  manager.addDocument('en', 'Send a message to', 'command.sendmessage');
+  manager.addDocument('pt', 'Manda uma mensagem para', 'command.sendmessage');
+  manager.addDocument('pt', 'Envia uma messagem para', 'command.sendmessage');
+
+  // say('Training, please wait..');
+  const hrstart = process.hrtime();
+  await manager.train();
+  const hrend = process.hrtime(hrstart);
+  console.info('Trained (hr): %ds %dms', hrend[0], hrend[1] / 1000000);
+  // say('Trained!');
+
+  manager.addAnswer(
+    'en',
+    'command.sendemail',
+    'OK, email will be sent when I learn to do it',
+  );
+  manager.addAnswer('pt', 'command.sendemail', 'OK, quando eu aprender :)');
+  manager.addAnswer(
+    'en',
+    'command.sendmessage',
+    "I don't like to talk that much, but I'll do my best, I guess...",
+  );
+  manager.addAnswer(
+    'pt',
+    'command.sendmessage',
+    'Podexa, assim que eu aprender...',
+  );
+
+  manager.addAnswer('en', 'None', "Sorry, I don't understand");
+  manager.addAnswer('pt', 'None', 'É o que?');
+  manager.save('./src/nlp/models/commands.nlp');
+}
