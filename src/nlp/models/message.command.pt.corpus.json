@@ -1,0 +1,60 @@
+{
+  "name": "Message Command",
+  "locale": "pt-BR",
+  "data": [
+    {
+      "intent": "command.message",
+      "utterances": [
+        "Manda uma mensagem para",
+        "Envia uma messagem para",
+        "Manda uma mensagem para o cliente informando sobre o novo produto",
+        "Preciso que você mande uma mensagem para o time de desenvolvimento",
+        "Como posso mandar uma mensagem para o departamento financeiro?",
+        "Quero mandar uma mensagem para o grupo sobre a reunião de amanhã",
+        "Mande uma mensagem para o fornecedor solicitando orçamento",
+        "Posso mandar uma mensagem para o suporte técnico sobre o problema?",
+        "Gostaria de mandar uma mensagem para o chefe de projeto",
+        "Manda uma mensagem formal para o cliente confirmando o agendamento",
+        "Estou pensando em mandar uma mensagem para a equipe, o que acha?",
+        "É possível mandar uma mensagem automática para os novos inscritos?"
+      ],
+      "answers": [
+        {
+          "answer": "Podexa {{ user }}, assim que eu aprender...",
+          "opts": "user!==null"
+        },
+        {
+          "answer": "Podexa!",
+          "opts": "user===None"
+        }
+      ]
+    },
+    {
+      "intent": "agent.whereami",
+      "utterances": ["where am i", "where am i talking"],
+      "answers": [
+        {
+          "answer": "you're talking from console, app is {{ app }} channel is {{ channel }}",
+          "opts": "channel==='console'"
+        },
+        {
+          "answer": "you're talking from directline, app is {{ app }} channel is {{ channel }}",
+          "opts": "channel==='directline'"
+        },
+        {
+          "answer": "you're talking from microsoft emulator, app is {{ app }} channel is {{ channel }}",
+          "opts": "channel==='msbf-emulator'"
+        }
+      ]
+    }
+  ],
+  "entities": {
+    "user": {
+      "options": {
+        "sweetie": ["Sweetie", "sweeite", "yah", "Yah"],
+        "watson": ["Watson", "Leo"],
+        "bizzi": ["Bizzi", "gabriel"]
+      }
+    }
+  }
+}

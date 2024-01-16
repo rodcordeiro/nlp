@@ -1,14 +1,13 @@
-import manager from './nlp/manager';
+import { manager } from './nlp';
 import { NlpProcessResponse } from 'node-nlp';
-import { trainCommandsModel } from './nlp/tranings/commands';
 
 (async () => {
-  await trainCommandsModel(manager);
   let response: NlpProcessResponse;
   const messages = [
     'Goodbye',
     'this is a test',
     'here I am again',
+    'where am i',
     'Send an email to Bizzi',
     'Send a message to Sweetie',
     'Envia um email para o Bizzi',
@@ -30,14 +29,15 @@ import { trainCommandsModel } from './nlp/tranings/commands';
     // if (response.intent !== 'None')
     //   console.log(`Q: ${message}->[${response.intent}] A: ${response.answer}`);
 
+    console.log(`Q: ${message}->[${response.intent}] ${response.answer}`);
     if (response.intent.includes('command')) {
-      console.log(`Q: ${message}->[${response.intent}]`);
-      if (response.entities.some((entity) => entity.entity === 'user')) {
-        console.log(
-          response.entities.find((entity) => entity.entity === 'user')
-            ?.sourceText,
-        );
-      }
+      // console.log(response);
+      // if (response.entities.some((entity) => entity.entity === 'user')) {
+      //   console.log(
+      //     response.entities.find((entity) => entity.entity === 'user')
+      //       ?.sourceText,
+      //   );
+      // }
       // console.log(
       //   message,
       //   `> Executing command: ${response.intent.split('.')[1]}.\n`,

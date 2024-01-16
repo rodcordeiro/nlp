@@ -112,8 +112,6 @@ declare module 'node-nlp' {
     private sentimentManager;
     constructor(settings: NlpManagerSettings);
 
-    findEntities(text: string, lang: string): Promise<any>;
-
     addDocument(locale: string, utterance: string, intent: string): any;
     removeDocument(locale: string, utterance: string, intent: string): any;
     addLanguage(locale: string): any;
