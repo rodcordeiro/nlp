@@ -1,36 +1,48 @@
 import manager from './nlp/manager';
-import { trainChatModel } from './nlp/tranings/chat';
+import { NlpProcessResponse } from 'node-nlp';
 import { trainCommandsModel } from './nlp/tranings/commands';
 
 (async () => {
   await trainCommandsModel(manager);
-  await trainChatModel(manager);
-  let response: any;
+  let response: NlpProcessResponse;
   const messages = [
     'Goodbye',
-    'Good Morning?',
-    "I'm very excited",
-    'Who are you?',
     'this is a test',
     'here I am again',
-    'Advice, please',
     'Send an email to Bizzi',
     'Send a message to Sweetie',
     'Envia um email para o Bizzi',
     'Manda uma messagem para Sweetie',
+    'Manda uma messagem para Yah',
     'Bom dia',
     'Testando',
-    'Como você está?',
-    'Tudo bem?',
-    'Me dê um conselho',
     'Abobrinha',
     'sabe como eu posso testar a api de fotos no insomnia?',
+    'Você pode enviar uma mensagem para yah sobre a lampada?',
+    'Manda uma mensagem para o cliente informando sobre o novo produto.',
+    'Pode me ajudar a enviar um e-mail para o gerente de vendas com os relatórios mensais?',
+    'Quero mandar uma mensagem para o grupo sobre a reunião de amanhã.',
+    'Como faço para enviar um e-mail com anexos pelo sistema de correio eletrônico?',
+    'Mande uma mensagem formal para o cliente confirmando o agendamento.',
   ];
   for await (const message of messages) {
     response = await manager.process(message);
-    console.log(`Q: ${message}-> A: ${response.answer}`);
-    if (response.intent.split('.')[0] === 'command') {
-      console.log(`> Executing command: ${response.intent.split('.')[1]}`);
+    // if (response.intent !== 'None')
+    //   console.log(`Q: ${message}->[${response.intent}] A: ${response.answer}`);
+
+    if (response.intent.includes('command')) {
+      console.log(`Q: ${message}->[${response.intent}]`);
+      if (response.entities.some((entity) => entity.entity === 'user')) {
+        console.log(
+          response.entities.find((entity) => entity.entity === 'user')
+            ?.sourceText,
+        );
+      }
+      // console.log(
+      //   message,
+      //   `> Executing command: ${response.intent.split('.')[1]}.\n`,
+      //   response.entities,
+      // );
     }
   }
 })();
