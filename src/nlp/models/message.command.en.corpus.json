@@ -4,16 +4,24 @@
   "data": [
     {
       "intent": "command.message",
-      "utterances": ["Send a message to"],
+      "utterances": [
+        "Send a message to  {{ user }}"
+      ],
       "answers": [
         {
           "answer": "Sure, {{ user }}!"
+        },
+        {
+          "answer": "Yep, {{ user }}!"
         }
       ]
     },
     {
       "intent": "agent.whereami",
-      "utterances": ["where am i", "where am i talking"],
+      "utterances": [
+        "where am i",
+        "where am i talking"
+      ],
       "answers": [
         {
           "answer": "you're talking from console, app is {{ app }} channel is {{ channel }}",
@@ -33,9 +41,18 @@
   "entities": {
     "user": {
       "options": {
-        "sweetie": ["Sweetie", "sweeite"],
-        "watson": ["Watson", "Leo"],
-        "bizzi": ["Bizzi", "gabriel"]
+        "sweetie": [
+          "Sweetie",
+          "sweeite"
+        ],
+        "watson": [
+          "Watson",
+          "Leo"
+        ],
+        "bizzi": [
+          "Bizzi",
+          "gabriel"
+        ]
       }
     }
   }

@@ -32,12 +32,12 @@ import { NlpProcessResponse } from 'node-nlp';
     console.log(`Q: ${message}->[${response.intent}] ${response.answer}`);
     if (response.intent.includes('command')) {
       // console.log(response);
-      // if (response.entities.some((entity) => entity.entity === 'user')) {
-      //   console.log(
-      //     response.entities.find((entity) => entity.entity === 'user')
-      //       ?.sourceText,
-      //   );
-      // }
+      if (response.entities.some((entity) => entity.entity === 'user')) {
+        console.log(
+          response.entities.find((entity) => entity.entity === 'user')
+            ?.sourceText,
+        );
+      }
       // console.log(
       //   message,
       //   `> Executing command: ${response.intent.split('.')[1]}.\n`,
